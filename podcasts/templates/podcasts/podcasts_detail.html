@@ -10,6 +10,10 @@
 <body>
 
     {{ object.title }}
+    {% for audios in object.audio %}
+    
+        <a href="{{ audios.get_absolute_url }}">{{ audios.title }}</a>
+    {% endfor %}
 </body>
 
 </html>

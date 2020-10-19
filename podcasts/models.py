@@ -15,6 +15,11 @@ class Podcasts(models.Model):
     def get_absolute_url(self):
         return reverse('podcasts:info', kwargs={'slug': self.slug})
 
+    @property
+    def audio(self):
+        return self.podcastaudio_set.all().order_by('position')
+
+
 class PodcastAudio(models.Model):
     slug = models.SlugField()
     title = models.CharField(max_length=120)
@@ -25,3 +30,10 @@ class PodcastAudio(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('podcasts:audio-detail', kwargs={
+            'podcasts_slug': self.podcast.slug,
+            'audio_slug': self.slug
+        })
+ 
