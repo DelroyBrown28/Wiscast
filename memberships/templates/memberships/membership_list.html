@@ -2,13 +2,36 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        {% for object in object_list %}
-        
-        {{ object.membership_type }}
-        {% endfor %}
+<div class="row">
+    <h2>Select Tier Level</h2>
+    {% for object in object_list %}
+    <div style="border: 1px solid red;" class="col s12">
+        <div class="row">
+            <h3>{{ object.membership_type }}</h3>
+            <p>Price: ${{ object.monthly_price }}<small>/month</small></p>
+            <h5>Included in tier</h5>
+            <ul>
+                {% for podcasts in object.podcasts_set.all %}
+                <li>{{ podcasts.title }}</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Only show button on tiers available to user -->
+            {% if object.membership_type != 'Basic' %}
+            <form method="POST" action="">
+                {% csrf_token %}
+                {% if object.membership_type != current_membership %}
+                <button class="btn">Select Tier</button>
+                {% else %}
+                <small>This is your current membership</small>
+                {% endif %}
+                <input type="hidden" name="membership_type" value="{{ object.membership_type }}">
+            </form>
+            {% endif %}
+
+        </div>
     </div>
+    {% endfor %}
 </div>
 
 {% endblock content %}
