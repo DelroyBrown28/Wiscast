@@ -18,9 +18,9 @@
 
             <!-- Only show button on tiers available to user -->
             {% if object.membership_type != 'Basic' %}
-            <form method="POST" action="">
+            <form method="POST" action="{% url 'memberships:select' %}">
                 {% csrf_token %}
-                
+
                 <!-- If the membership selected isn't equal to the current membership -->
                 {% if object.membership_type != current_membership %}
                 <button class="btn">Select Tier</button>
