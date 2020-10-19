@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'podcasts/base.html' %}
+{% block content %}
+<h1>Audio Detail</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% if object is not None %}
+{{ object.title }}
+{{ object.description }}
+{% else %}
+<h3>Upgrade Tier Level</h3>
+{% endif %}
+{% endblock content %}
 
-<body>
-
-    <h1>Audio Detail</h1>
-
-    {% if object is not None %}
-        {{ object.title }}
-        {{ object.description }}
-    {% else %}
-    <h3>Upgrade Tier Level</h3>
-    {% endif %}
-
-</body>
-
-</html>
+<script src="text/javascript">
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+    });
+</script>

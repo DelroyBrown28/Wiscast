@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiscast</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+</head>
+
+<body style="margin: 20px;">
+
+    <nav>
+        <div class="nav-wrapper">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="#">wiscast</a></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                {% block post_detail_link %}
+                {% endblock %}
+
+            </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {% if not request.user.is_authenticated %}
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+                {% else %}
+                <li><a href="#">Books</a></li>
+                <li><a href='/memberships/'>Purchase Tier</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock content %}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"
+    integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+
+</body>
+
+</html>

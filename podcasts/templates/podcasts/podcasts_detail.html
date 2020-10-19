@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'podcasts/base.html' %}
+{% block content %}
+{{ object.title }}
+{% for audios in object.audio %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-
-    {{ object.title }}
-    {% for audios in object.audio %}
-    
-        <a href="{{ audios.get_absolute_url }}">{{ audios.title }}</a>
-    {% endfor %}
-</body>
-
-</html>
+<a href="{{ audios.get_absolute_url }}">{{ audios.title }}</a>
+{% endfor %}
+{% endblock content %}
