@@ -1,7 +1,9 @@
 {% extends 'podcasts/base.html' %}
 {% block content %}
-{{ object.title }}
+{{ object.title }}<br>
 {% for audios in object.audio %}
+
+<!-- Podcast audios will go here -->
 
 <a href="{{ audios.get_absolute_url }}">{{ audios.title }}</a>
 {% endfor %}

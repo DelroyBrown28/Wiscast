@@ -20,6 +20,8 @@
             {% if object.membership_type != 'Basic' %}
             <form method="POST" action="">
                 {% csrf_token %}
+                
+                <!-- If the membership selected isn't equal to the current membership -->
                 {% if object.membership_type != current_membership %}
                 <button class="btn">Select Tier</button>
                 {% else %}
