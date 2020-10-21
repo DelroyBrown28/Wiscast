@@ -6,20 +6,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wiscast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
 </head>
 
 <body style="margin: 20px;">
 
+    <!-- New Nav -->
+
     <nav>
+        <div class="nav-wrapper">
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="left hide-on-med-and-down">
+                    <div class="brand-logo nav_center_blurb center">After a long day of work<br>Relax and rest your
+                        eyes.</div>
+                <li class="nav_item"><a href="#"><Span class="color_text">WIS</Span>CAST</a></li>
+                <li class="nav_item"><a href="#">Home</a></li>
+                {% block post_detail_link %}
+                {% endblock %}
+                {% if not request.user.is_authenticated %}
+                <li class="nav_item"><a href="#">Register</a></li>
+                {% else %}
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li class="nav_item"><a href='/memberships/'><em>Purchase Tier</em></a></li>
+                <li class="nav_item"><a href="#"><em>Login</em></a></li>
+                <li class="nav_item"><a href="#"><em>Podcasts</em></a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </nav>
+
+    <ul class="sidenav" id="mobile-demo">
+        <li class="nav_item"><a href="#">WISCAST</a></li>
+        <li class="nav_item"><a href="#">Home</a></li>
+        {% if not request.user.is_authenticated %}
+        <li><a href="#">Register</a></li>
+        {% else %}
+        <li class="nav_item"><a href='/memberships/'>Purchase Tier</a></li>
+        <li class="nav_item"><a href="#">Login</a></li>
+        <li class="nav_item"><a href="#">Podcasts</a></li>
+        {% endif %}
+    </ul>
+
+
+    <!-- OLD NAV -->
+
+    <!-- <nav>
         <div class="nav-wrapper">
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="#">wiscast</a></li>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Profile</a></li>
-                {% block post_detail_link %}
-                {% endblock %}
 
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -32,17 +75,18 @@
                 {% endif %}
             </ul>
         </div>
-    </nav>
+    </nav> -->
 
     {% block content %}
     {% endblock content %}
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"
-    integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
-    crossorigin="anonymous"></script>
+        integrity="sha512-WNLxfP/8cVYL9sj8Jnp6et0BkubLP31jhTG9vhL/F5uEZmg5wEzKoXp1kJslzPQWwPT1eyMiSxlKCgzHLOTOTQ=="
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
+    <script src="{% static './javascript/scripts.js' %}"></script>
+
 
 </body>
 

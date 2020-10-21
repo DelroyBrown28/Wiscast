@@ -24,7 +24,7 @@ def get_user_subscription(request):
         return user_subscription
     return None
 
-
+    
 def get_selected_membership(request):
     membership_type = request.session['selected_membership_type']
     selected_membership_queryset = Membership.objects.filter(

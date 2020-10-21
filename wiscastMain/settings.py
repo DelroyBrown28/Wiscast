@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+from django.conf.urls.static import static
 from decouple import config
 from pathlib import Path
 
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0#w_prqgwth(g$f5_)oz*u^78gc$t(y8mqdx%6#s5emo)hkv!8'
+SECRET_KEY = "wpxfAqeBJvS5I1ayk8zvaiXm4lLDpf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -124,11 +125,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static_root'),
+    os.path.join(BASE_DIR, 'static/'), # change to static_root when deployed
 ]
 
 VENV_PATH = os.path.dirname(BASE_DIR)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(VENV_PATH, 'media_root')
 
