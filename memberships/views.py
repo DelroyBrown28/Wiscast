@@ -8,6 +8,16 @@ from .models import Membership, UserMembership, Subscription
 import stripe
 
 
+def profile_view(request):
+    user_membership = get_user_membership(request)
+    user_subscription = get_user_subscription(request)
+    context = {
+        'user_membership': user_membership,
+        'user_subscription': user_subscription,
+    }
+    return render(request, 'memberships/profile.html', context)
+
+
 # Gets the current memebership
 def get_user_membership(request):
     user_membership_queryset = UserMembership.objects.filter(user=request.user)
@@ -69,7 +79,6 @@ class MembershipSelectView(ListView):
         request.session['selected_membership_type'] = selected_membership.membership_type
 
         return HttpResponseRedirect(reverse('memberships:payment'))
-
 
 
 def PaymentView(request):
