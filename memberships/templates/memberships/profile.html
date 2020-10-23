@@ -12,10 +12,10 @@
 
             {% if user_subscription.active != False %}
             <p>Next payment due: {{ user_subscription.get_next_billing_date }}</p>
-            <a href="#">Cancel Subscription</a>
+            <a href="{% url 'memberships:cancel' %}">Cancel Subscription</a>
 
             {% else %}
-            <p>You are not part of an active Tier. Upgrade Tier here<a href="{% url 'memberships:select' %}"></a>
+            <p>You are not part of an active Tier. Upgrade Tier<a href="{% url 'memberships:select' %}"> here</a>
             </p>
             {% endif %}
             {% endif %}

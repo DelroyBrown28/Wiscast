@@ -1,11 +1,16 @@
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.urls import reverse
 from .models import Membership, UserMembership, Subscription
 import stripe
+
+
+def membershipsPage(request):
+    return render(request, 'memberships/memberships_list.html')
 
 
 def profile_view(request):
@@ -18,12 +23,12 @@ def profile_view(request):
     return render(request, 'memberships/profile.html', context)
 
 
-# Gets the current memebership
+# Gets the current membership
 def get_user_membership(request):
     user_membership_queryset = UserMembership.objects.filter(user=request.user)
     if user_membership_queryset.exists():
         return user_membership_queryset.first()
-    return None
+    return render(request, 'memberships/memberships_list.html', context)
 
 
 def get_user_subscription(request):
@@ -48,11 +53,11 @@ def get_selected_membership(request):
 class MembershipSelectView(ListView):
     model = Membership
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        current_membership = get_user_membership(self.request)
-        context['current_membership'] = str(current_membership.membership)
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     current_membership = get_user_membership(self.request)
+    #     context['current_membership'] = str(current_membership.membership)
+    #     return context
 
     # Handles POST from membership selection
     def post(self, request, **kwargs):
@@ -71,7 +76,7 @@ class MembershipSelectView(ListView):
         =================
         """
         if user_membership.membership == selected_membership:
-            if user_subscription != None:
+            if user_subscription is not None:
                 messages.info(request, "This is your current tier. Your \
                         next payment will be due on {}".format('get value from stripe'))
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -153,3 +158,32 @@ def updateTransactionRecords(request, subscription_id):
     messages.info(request, "successfully created {} tier level".format(
         selected_membership))
     return redirect('memberships:select')
+
+
+def cancelSubscription(request):
+    user_subscription = get_user_subscription(request)
+
+    if user_subscription.active == False:
+        messages.info(request, "You have no active Tier level")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    sub = stripe.Subscription.retrieve(
+        user_subscription.stripe_subscription_id)
+    sub.delete()
+
+    user_subscription.active = False
+    user_subscription.save()
+
+    basic_membership = Membership.objects.filter(
+        membership_type='Basic').first()
+    user_membership = get_user_membership(request)
+    user_membership.membership = basic_membership
+    user_membership.save()
+
+    messages.info(request, "Tier Level cancelled, you are now Basic!")
+    """
+    ==========
+    ADD AUTO EMAIL FUNCTION
+    ==========
+    """
+    return redirect(reverse('memberships:select'))
+

@@ -3,5 +3,11 @@
 <h1>All Podcasts</h1>
 {% for object in object_list %}
 <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+
+{% for podcasts in object.podcasts_set.all %}
+<p>{{ podcasts.title }}</p>
+<div>{{ podcasts.description }}</div>
+{% endfor %}
+
 {% endfor %}
 {% endblock content %}

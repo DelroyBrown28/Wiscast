@@ -7,8 +7,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('memberships/', include('memberships.urls', namespace='memberships')),
     path('', include('podcasts.urls', namespace='podcasts')),
+    path('membershipsPage/', include('memberships.urls', namespace='membershipsPage')),
+
+
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

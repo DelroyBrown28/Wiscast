@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (MembershipSelectView,
                     PaymentView,
                     updateTransactionRecords,
-                    profile_view)
+                    profile_view, cancelSubscription, membershipsPage)
 
 
 app_name = 'memberships'
@@ -13,4 +13,11 @@ urlpatterns = [
     path('update-transactions/<subscription_id>/',
          updateTransactionRecords, name='update-transactions'),
     path('profile/', profile_view, name='profile'),
+    path('cancel/', cancelSubscription, name='cancel'),
 ]
+
+
+# Dictionary Methods
+marks = {}.fromkeys(
+    ['Math', 'English', 'Science'])
+

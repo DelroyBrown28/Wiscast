@@ -5,6 +5,7 @@ from memberships.models import Membership
 
 class Podcasts(models.Model):
     slug = models.SlugField()
+    artist = models.CharField(max_length=25, null=True)
     title = models.CharField(max_length=120)
     description = models.TextField()
     allowed_memberships = models.ManyToManyField(Membership)

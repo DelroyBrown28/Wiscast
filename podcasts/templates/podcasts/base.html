@@ -28,15 +28,12 @@
                 <li class="nav_item"><a href="#">Home</a></li>
                 {% block post_detail_link %}
                 {% endblock %}
-                {% if not request.user.is_authenticated %}
                 <li class="nav_item"><a href="#">Register</a></li>
-                {% else %}
+                <li class="nav_item"><a href='/membershipsPage/'><em>Purchase Tier</em></a></li>
             </ul>
             <ul class="right hide-on-med-and-down">
-                <li class="nav_item"><a href='/memberships/'><em>Purchase Tier</em></a></li>
                 <li class="nav_item"><a href="#"><em>Login</em></a></li>
                 <li class="nav_item"><a href="#"><em>Podcasts</em></a></li>
-                {% endif %}
             </ul>
 
         </div>
